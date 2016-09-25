@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Visualization</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+	<script src="js/Script.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="top">
+			<h2 class="text-center">グラフ化マン</h2>
+			<form class="text-center" name="txtb" target="output" accept-charset="utf-8">
+				<p>数列を入れて変換を押すと動きます</p>
+				<p>【条件】半角数字かつ,区切りで降順の数列であること</p>
+				<input class="from-control" type="text" name="txt" placeholder="数列">
+				<button class="btn" name="change" type="button" onclick="onClick()">変換</button>
+			</form>
+		</div>
+	</div>
+	<output class="text-center" name="out"></output>
+</body>
+</html>
