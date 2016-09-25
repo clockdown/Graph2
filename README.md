@@ -7,9 +7,9 @@ index.htmlをダブルクリックで開くよ！
 注・いんたーねっつ環境が必須だよ！
 
 ##ディレクトリ構成
-  ├── index.html
-  ├── js/
-  │    └Script.js
-  ├── css/
-  │    └style.css
-  └── README.md
+├── index.html
+├── js/
+│    └Script.js
+├── css/
+│    └style.css
+└── README.md
