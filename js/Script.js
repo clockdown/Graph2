@@ -74,20 +74,51 @@ function judge(elem){
 function vision(copy){
 	var head;
 	var counter;
+	var add = 0;
+
+	for (i = 0; i < copy.length; i++) {
+		add += copy[i];
+	}
+
 	for ( i = 0; i < copy.length; i++) {
-		lem[i] = {id: 1 ,label: copy[i]};
+		lem[i] = {id: i ,label: copy[i]};
 		nodes.push(lem[i]);
 	}
 	console.log(JSON.stringify(nodes));
 
-	var admin = 0;
-	var long = copy.length;
+	var array = new Array();
+	var edge = 0;
+
+	for (i = 0; i < copy.length; i++){
+		array[i] = new data(copy[i],i);
+	}
+	console.log(JSON.stringify(array));
+
+	for (var j = 0; j < copy.length; j++) {
+		if(array[0].data1 > 0){
+			for (i = 1; i <= array[0].data1; i++) {
+				array[i].data1--;
+				lem[i] = {source:array[0].id, target:array[i].id};
+				links.push(lem[i]);
+				edge++;
+			}
+			array[0].data1 = 0;
+			object_array_sort(array, 'data1', 0, function(new_data){
+				//ソート後の処理
+				console.log(JSON.stringify(new_data)); //
+			});
+			console.log(JSON.stringify(array));
+		}
+	}
+
+	/*
 	while(long > 1){
 		head = copy[0];
 		if(head > 0){
 			for ( i = 0; i < head; i++) {
 				lem[i] = {source:admin, target:admin+1+i};
 				links.push(lem[i]);
+				edge++;
 			}
 			copy.shift();
 			for (i = 0; i < head; i++){
@@ -100,6 +131,13 @@ function vision(copy){
 		console.log(JSON.stringify(links));
 		admin++;
 		long--;
+	}
+	//*/
+	console.log("エッジの数:"+edge);
+
+	if (add % 2 === edge) {
+		console.log("nodes error");
+		return 0;
 	}
 
 	var force =   d3.layout.force()
@@ -140,4 +178,28 @@ function vision(copy){
 	//*/
 }
 
+function data(data1, id){
+	this.data1 = data1;
+	this.id = id;
+}
 
+function object_array_sort(data,key,order,fn){
+	//デフォは降順(DESC)
+	var num_a = -1;
+	var num_b = 1;
+
+	if(order === 'asc'){//指定があれば昇順(ASC)
+		num_a = 1;
+		num_b = -1;
+	}
+
+	data = data.sort(function(a, b){
+		var x = a[key];
+		var y = b[key];
+		if (x > y) return num_a;
+		if (x < y) return num_b;
+		return 0;
+	});
+
+	fn(data); // ソート後の配列を返す
+}
